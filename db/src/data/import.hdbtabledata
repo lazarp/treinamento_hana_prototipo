@@ -38,6 +38,25 @@
                     "quote_character": "\""
                 }
             }
+        },
+        {
+            "target_table": "T_PRODUTOS",
+            "import_settings":{
+                "include_filter":[]
+            },
+            "source_data": {
+                "data_type": "CSV",
+                "file_name": "T_PRODUTOS.csv",
+                "has_header": true,
+                "no_data_import": false,
+                "delete_existing_foreign_data": false,
+                "dialect": "HANA",
+                "type_config": {
+                    "delimiter": ",",
+                    "do_quote": true,
+                    "quote_character": "\""
+                }
+            }
         }
     ]
 }
