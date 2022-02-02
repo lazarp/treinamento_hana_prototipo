@@ -1,0 +1,201 @@
+CLIENTE_ID,ENDERECO_ID,LOGRADOURO,COMPLEMENTO,NUMERO,CEP
+47,1,Heffernan,Park,5,58007-663
+41,2,Ilene,Circle,23,38965-481
+31,3,Washington,Place,8861,25831-421
+3,4,7th,Lane,23,25457-333
+7,5,Rowland,Point,7,32950-474
+27,6,Charing Cross,Place,3,27218-753
+37,7,Sherman,Terrace,619,98349-506
+30,8,Moulton,Pass,20794,49386-494
+38,9,Lake View,Pass,09082,78362-341
+31,10,Eastlawn,Plaza,795,74964-984
+35,11,Jana,Pass,15,25457-333
+49,12,South,Trail,18863,49006-205
+29,13,Fremont,Crossing,40,30131-475
+40,14,Linden,Alley,09,03445-501
+2,15,Spaight,Point,28,21545-683
+12,16,Troy,Point,6500,80075-533
+40,17,Clyde Gallagher,Terrace,25023,53959-168
+44,18,Bartillon,Hill,5484,18029-060
+11,19,Rigney,Center,4,86884-662
+45,20,Scott,Lane,70257,06418-122
+34,21,Steensland,Court,032,08853-585
+29,22,Rigney,Center,3,26147-035
+27,23,Thackeray,Hill,8601,60787-224
+10,24,Killdeer,Junction,78855,99526-241
+46,25,Stephen,Junction,6546,60787-224
+37,26,Little Fleur,Court,8851,80980-954
+22,27,Fulton,Park,0,45990-914
+43,28,7th,Alley,90945,39353-695
+4,29,Express,Lane,64867,80323-577
+3,30,Scoville,Junction,819,01175-220
+33,31,Memorial,Crossing,55,74964-984
+13,32,Logan,Drive,9313,59363-810
+2,33,Fallview,Park,97988,03901-677
+27,34,Grasskamp,Park,29,17324-531
+49,35,Clemons,Road,58820,11568-350
+36,36,Lillian,Way,3,01428-654
+39,37,Beilfuss,Parkway,23884,23356-769
+12,38,Vahlen,Park,7,08830-861
+1,39,Sullivan,Alley,456,61637-510
+22,40,South,Park,53,97699-539
+50,41,Cordelia,Terrace,5,03619-185
+12,42,American Ash,Crossing,224,76412-346
+32,43,Oak,Junction,68,74773-317
+14,44,Sunnyside,Lane,0,82888-429
+31,45,Golf,Crossing,39176,98224-031
+40,46,Roth,Avenue,93237,95336-332
+44,47,Stone Corner,Terrace,76,73689-171
+30,48,Redwing,Place,8545,49364-335
+11,49,Judy,Way,8115,25508-568
+26,50,5th,Place,8,46492-321
+44,51,Havey,Plaza,0,30131-475
+43,52,John Wall,Court,3560,97038-708
+4,53,Arapahoe,Circle,741,36976-749
+3,54,Tennyson,Place,91,56685-707
+31,55,Pawling,Avenue,4985,07482-636
+47,56,Valley Edge,Way,24,37016-377
+45,57,Birchwood,Park,8431,09037-148
+35,58,Del Mar,Junction,2102,61049-008
+21,59,Dapin,Pass,020,64825-277
+32,60,Goodland,Street,56,59363-810
+8,61,Cambridge,Street,52109,10539-060
+10,62,Sherman,Junction,31053,23366-099
+13,63,La Follette,Parkway,2783,70812-062
+5,64,Dennis,Junction,36,68929-550
+50,65,Emmet,Lane,30282,55641-834
+46,66,Hansons,Pass,0640,14430-594
+45,67,New Castle,Center,042,82838-860
+33,68,Oak Valley,Terrace,7,28992-152
+35,69,Summer Ridge,Center,42905,98349-506
+42,70,Emmet,Street,10,05644-351
+20,71,Mesta,Center,7,38965-481
+14,72,Spaight,Park,95721,23060-395
+35,73,Mockingbird,Parkway,8,86884-662
+41,74,Bartelt,Way,6335,33959-081
+10,75,Scofield,Avenue,45,82676-280
+33,76,Kinsman,Trail,29,00976-955
+45,77,Evergreen,Alley,129,76773-966
+18,78,Brentwood,Circle,96,55888-107
+39,79,Esch,Crossing,75249,25831-421
+34,80,Bunker Hill,Circle,9377,55223-141
+35,81,Charing Cross,Crossing,96094,61049-008
+20,82,Lakewood Gardens,Avenue,5,03711-793
+25,83,Parkside,Park,65,32950-474
+34,84,Algoma,Center,55818,26147-035
+30,85,Northview,Court,7,42855-706
+22,86,Vidon,Trail,12,99526-241
+12,87,Ilene,Plaza,37,80012-881
+41,88,Marquette,Circle,597,30292-341
+44,89,Sundown,Crossing,0,80012-881
+6,90,Mayfield,Court,98914,27218-753
+1,91,Anthes,Junction,8061,01849-630
+46,92,Transport,Point,189,03445-501
+17,93,Holmberg,Alley,88221,68678-170
+35,94,Atwood,Place,4301,50132-146
+39,95,Ryan,Parkway,8046,18029-060
+3,96,Lakewood Gardens,Avenue,518,58809-436
+33,97,Westport,Trail,1249,82888-429
+35,98,Sutherland,Terrace,672,98224-031
+11,99,Dorton,Circle,97647,86884-662
+28,100,International,Lane,473,21770-068
+8,101,Talmadge,Center,08806,51136-381
+24,102,Stone Corner,Hill,83,63926-432
+3,103,Porter,Place,1260,75020-105
+37,104,Sunnyside,Trail,316,40104-647
+38,105,Dennis,Center,46125,34159-308
+44,106,Scott,Crossing,64415,37589-055
+30,107,Hoard,Pass,93,33545-349
+28,108,Merchant,Crossing,98969,03637-245
+18,109,Aberg,Junction,11,97038-708
+34,110,Lawn,Court,82278,23356-769
+12,111,Sage,Avenue,172,56601-119
+15,112,Dryden,Terrace,119,26147-035
+21,113,Schlimgen,Crossing,42,83698-435
+34,114,Warrior,Court,51199,41026-343
+42,115,Kipling,Crossing,88165,47446-222
+2,116,Huxley,Point,8,14017-538
+32,117,Hanover,Point,15928,48207-936
+48,118,Holy Cross,Alley,027,21770-068
+26,119,Wayridge,Avenue,0,93125-542
+25,120,Shopko,Avenue,4989,22882-439
+31,121,Old Shore,Pass,1025,04502-712
+43,122,Barby,Terrace,43055,97548-004
+50,123,Farragut,Terrace,8915,95646-171
+28,124,Blue Bill Park,Place,01,84276-819
+46,125,Oriole,Road,70909,31579-993
+12,126,Myrtle,Avenue,9,63136-307
+14,127,Derek,Junction,927,09037-148
+27,128,Jana,Court,3831,97038-708
+45,129,Reinke,Point,670,15442-157
+36,130,Crest Line,Road,42,08830-861
+32,131,Westend,Crossing,7,01175-220
+40,132,Golden Leaf,Center,3,69657-266
+15,133,Magdeline,Terrace,4244,14648-277
+17,134,Onsgard,Park,877,08833-978
+18,135,Delladonna,Court,4,30131-475
+9,136,Lakewood,Park,01731,79027-070
+8,137,Birchwood,Crossing,0,51843-709
+11,138,Hazelcrest,Center,18,14648-277
+17,139,Clemons,Avenue,3,08830-861
+21,140,Union,Place,213,18367-565
+50,141,Portage,Court,085,94217-754
+3,142,Fulton,Pass,00,59729-764
+23,143,Declaration,Point,8,93049-789
+28,144,Duke,Junction,65,33545-349
+43,145,David,Park,874,31036-982
+6,146,Mandrake,Crossing,17,23060-395
+42,147,Hauk,Road,23,25457-333
+32,148,Mayfield,Way,15906,56759-308
+2,149,Washington,Trail,5209,85909-647
+23,150,Melby,Parkway,022,89759-667
+30,151,Redwing,Pass,570,97038-708
+25,152,Superior,Pass,51608,04772-314
+16,153,Anniversary,Terrace,920,68339-518
+42,154,Lighthouse Bay,Center,57,43542-617
+9,155,Mccormick,Way,5,67499-697
+38,156,8th,Plaza,5100,54848-884
+20,157,Cody,Court,13309,30447-371
+8,158,Mccormick,Trail,30352,97121-403
+19,159,Pleasure,Trail,318,84473-433
+13,160,Express,Junction,99,55223-141
+11,161,Warbler,Drive,689,01849-630
+46,162,Schmedeman,Junction,91,51843-709
+39,163,Reindahl,Parkway,99,21843-398
+45,164,Roxbury,Street,33,08833-978
+50,165,Merrick,Lane,1,59729-764
+12,166,Drewry,Crossing,96510,83698-435
+6,167,Kingsford,Place,02,70467-194
+2,168,Granby,Crossing,7783,42236-501
+27,169,Fairfield,Terrace,43814,25859-307
+41,170,Fulton,Center,9553,19042-224
+32,171,Calypso,Crossing,128,33959-081
+17,172,Northview,Lane,1,30447-371
+1,173,Northview,Street,3448,62037-066
+7,174,Arkansas,Terrace,571,73031-025
+28,175,Dovetail,Drive,6718,18367-565
+39,176,1st,Avenue,176,40195-842
+2,177,Dryden,Plaza,7,89202-798
+30,178,Victoria,Pass,9,08833-978
+7,179,West,Hill,726,48088-208
+26,180,Debs,Junction,3345,86884-662
+50,181,Pond,Hill,735,31579-993
+13,182,8th,Park,1268,64231-684
+18,183,Claremont,Parkway,6774,40530-424
+25,184,Buhler,Way,950,03711-793
+7,185,Macpherson,Way,8436,10539-060
+50,186,Pawling,Avenue,261,99000-189
+2,187,David,Parkway,3160,14430-594
+46,188,Westend,Drive,8453,32467-343
+6,189,Forest,Road,93,30986-298
+12,190,Hazelcrest,Plaza,07,44577-206
+4,191,Portage,Terrace,2,25508-568
+13,192,Lindbergh,Pass,153,14002-659
+40,193,Golf Course,Circle,941,17064-894
+17,194,Golden Leaf,Street,3,03711-793
+8,195,Grasskamp,Crossing,40,23068-898
+22,196,Hansons,Crossing,876,40530-424
+21,197,Rusk,Circle,0,25831-421
+1,198,Upham,Way,319,46548-355
+30,199,Northport,Circle,64503,84764-547
+10,200,Helena,Alley,00,49006-205
