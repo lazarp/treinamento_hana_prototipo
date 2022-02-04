@@ -42,7 +42,7 @@ entity T_TAXAS {
 entity T_PEDIDOS_COMPRA {
     key PEDIDO_ID      : Integer;
     key CLIENTE_ID     : Integer;
-        DATA           : Date;
+        DATA_PEDIDO    : Date;
         TIPO_PAGAMENTO : String(50);
         ENDERECO_ID    : Integer;
 };
