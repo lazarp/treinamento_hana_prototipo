@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="CV_VALOR_FINAL_POR_PEDIDO" applyPrivilegeType="NONE" dataCategory="DIMENSION" dimensionType="STANDARD" schemaVersion="3.0" outputViewType="Projection" cacheInvalidationPeriod="NONE" enforceSqlExecution="false">
+<descriptions defaultDescription="CV_VALOR_FINAL_POR_PEDIDO.hdbcalculationview"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="CV_TOTAIS_PEDIDOS">
+    <resourceUri>CV_TOTAIS_PEDIDOS</resourceUri>
+  </DataSource>
+  <DataSource id="T_ENDERECOS">
+    <resourceUri>T_ENDERECOS</resourceUri>
+  </DataSource>
+  <DataSource id="T_FRETES">
+    <resourceUri>T_FRETES</resourceUri>
+  </DataSource>
+  <DataSource id="T_PEDIDOS_COMPRA">
+    <resourceUri>T_PEDIDOS_COMPRA</resourceUri>
+  </DataSource>
+  <DataSource id="T_TAXAS">
+    <resourceUri>T_TAXAS</resourceUri>
+  </DataSource>
+</dataSources>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="TOTAIS">
+    <descriptions>
+      <comment text="Totais por pedido"/>
+    </descriptions>
+    <viewAttributes>
+      <viewAttribute id="PEDIDO_ID"/>
+      <viewAttribute id="QUANTIDADE_TOTAL"/>
+      <viewAttribute id="VALOR_TOTAL"/>
+      <viewAttribute id="CUSTO_TOTAL"/>
+      <viewAttribute id="PESO_TOTAL"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="CV_TOTAIS_PEDIDOS"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="ENDERECOS">
+    <viewAttributes>
+      <viewAttribute id="CLIENTE_ID"/>
+      <viewAttribute id="ENDERECO_ID"/>
+      <viewAttribute id="LOGRADOURO"/>
+      <viewAttribute id="NUMERO"/>
+      <viewAttribute id="COMPLEMENTO"/>
+      <viewAttribute id="CEP"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="T_ENDERECOS"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+    <viewAttributes>
+      <viewAttribute id="CEP"/>
+      <viewAttribute id="CUSTO_FRETE_POR_QUILO"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="T_FRETES"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1" cardinality="C1_1" joinType="leftOuter">
+    <viewAttributes>
+      <viewAttribute id="CLIENTE_ID"/>
+      <viewAttribute id="ENDERECO_ID"/>
+      <viewAttribute id="LOGRADOURO"/>
+      <viewAttribute id="NUMERO"/>
+      <viewAttribute id="COMPLEMENTO"/>
+      <viewAttribute id="CEP"/>
+      <viewAttribute id="CUSTO_FRETE_POR_QUILO"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="ENDERECOS">
+      <mapping xsi:type="Calculation:AttributeMapping" target="CLIENTE_ID" source="CLIENTE_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="ENDERECO_ID" source="ENDERECO_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="LOGRADOURO" source="LOGRADOURO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="NUMERO" source="NUMERO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="COMPLEMENTO" source="COMPLEMENTO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CEP" source="CEP"/>
+    </input>
+    <input node="Projection_1">
+      <mapping xsi:type="Calculation:AttributeMapping" target="CUSTO_FRETE_POR_QUILO" source="CUSTO_FRETE_POR_QUILO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CEP" source="CEP"/>
+    </input>
+    <joinAttribute name="CEP"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_2">
+    <viewAttributes>
+      <viewAttribute id="PEDIDO_ID"/>
+      <viewAttribute id="CLIENTE_ID"/>
+      <viewAttribute id="DATA_PEDIDO"/>
+      <viewAttribute id="TIPO_PAGAMENTO"/>
+      <viewAttribute id="ENDERECO_ID"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="T_PEDIDOS_COMPRA"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_2" cardinality="C1_1" joinType="leftOuter">
+    <viewAttributes>
+      <viewAttribute id="PEDIDO_ID"/>
+      <viewAttribute id="CLIENTE_ID"/>
+      <viewAttribute id="QUANTIDADE_TOTAL"/>
+      <viewAttribute id="VALOR_TOTAL"/>
+      <viewAttribute id="CUSTO_TOTAL"/>
+      <viewAttribute id="PESO_TOTAL"/>
+      <viewAttribute id="ENDERECO_ID"/>
+      <viewAttribute id="TIPO_PAGAMENTO"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="TOTAIS">
+      <mapping xsi:type="Calculation:AttributeMapping" target="PEDIDO_ID" source="PEDIDO_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="QUANTIDADE_TOTAL" source="QUANTIDADE_TOTAL"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="VALOR_TOTAL" source="VALOR_TOTAL"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CUSTO_TOTAL" source="CUSTO_TOTAL"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="PESO_TOTAL" source="PESO_TOTAL"/>
+    </input>
+    <input node="Projection_2">
+      <mapping xsi:type="Calculation:AttributeMapping" target="ENDERECO_ID" source="ENDERECO_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CLIENTE_ID" source="CLIENTE_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="TIPO_PAGAMENTO" source="TIPO_PAGAMENTO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="PEDIDO_ID" source="PEDIDO_ID"/>
+    </input>
+    <joinAttribute name="PEDIDO_ID"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_3" cardinality="C1_1" joinType="leftOuter">
+    <viewAttributes>
+      <viewAttribute id="PEDIDO_ID"/>
+      <viewAttribute id="CLIENTE_ID"/>
+      <viewAttribute id="TIPO_PAGAMENTO"/>
+      <viewAttribute id="QUANTIDADE_TOTAL"/>
+      <viewAttribute id="VALOR_TOTAL"/>
+      <viewAttribute id="CUSTO_TOTAL"/>
+      <viewAttribute id="PESO_TOTAL"/>
+      <viewAttribute id="ENDERECO_ID"/>
+      <viewAttribute id="CUSTO_FRETE_POR_QUILO"/>
+    </viewAttributes>
+    <calculatedViewAttributes>
+      <calculatedViewAttribute id="VALOR_FRETE" datatype="DOUBLE" expressionLanguage="SQL">
+        <formula>&quot;CUSTO_FRETE_POR_QUILO&quot;*&quot;PESO_TOTAL&quot;</formula>
+      </calculatedViewAttribute>
+      <calculatedViewAttribute id="VALOR_FINAL_PEDIDO" datatype="DOUBLE" expressionLanguage="SQL">
+        <formula>&quot;VALOR_TOTAL&quot;+&quot;VALOR_FRETE&quot;</formula>
+      </calculatedViewAttribute>
+    </calculatedViewAttributes>
+    <input node="Join_2">
+      <mapping xsi:type="Calculation:AttributeMapping" target="PEDIDO_ID" source="PEDIDO_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CLIENTE_ID" source="CLIENTE_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="QUANTIDADE_TOTAL" source="QUANTIDADE_TOTAL"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="VALOR_TOTAL" source="VALOR_TOTAL"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CUSTO_TOTAL" source="CUSTO_TOTAL"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="PESO_TOTAL" source="PESO_TOTAL"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="ENDERECO_ID" source="ENDERECO_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="TIPO_PAGAMENTO" source="TIPO_PAGAMENTO"/>
+    </input>
+    <input node="Join_1">
+      <mapping xsi:type="Calculation:AttributeMapping" target="CUSTO_FRETE_POR_QUILO" source="CUSTO_FRETE_POR_QUILO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CLIENTE_ID" source="CLIENTE_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="ENDERECO_ID" source="ENDERECO_ID"/>
+    </input>
+    <joinAttribute name="CLIENTE_ID"/>
+    <joinAttribute name="ENDERECO_ID"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_3">
+    <viewAttributes>
+      <viewAttribute id="TIPO_PAGAMENTO"/>
+      <viewAttribute id="TAXA"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="T_TAXAS"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_4" cardinality="C1_1" joinType="leftOuter">
+    <viewAttributes>
+      <viewAttribute id="PEDIDO_ID"/>
+      <viewAttribute id="CLIENTE_ID"/>
+      <viewAttribute id="TIPO_PAGAMENTO"/>
+      <viewAttribute id="QUANTIDADE_TOTAL"/>
+      <viewAttribute id="VALOR_TOTAL"/>
+      <viewAttribute id="CUSTO_TOTAL"/>
+      <viewAttribute id="PESO_TOTAL"/>
+      <viewAttribute id="ENDERECO_ID"/>
+      <viewAttribute id="CUSTO_FRETE_POR_QUILO"/>
+      <viewAttribute id="VALOR_FRETE"/>
+      <viewAttribute id="VALOR_FINAL_PEDIDO"/>
+      <viewAttribute id="TAXA"/>
+    </viewAttributes>
+    <calculatedViewAttributes>
+      <calculatedViewAttribute id="TAXA_SOBRE_O_PEDIDO" datatype="DOUBLE" expressionLanguage="SQL">
+        <formula>&quot;TAXA&quot;*&quot;VALOR_FINAL_PEDIDO&quot;</formula>
+      </calculatedViewAttribute>
+      <calculatedViewAttribute id="CUSTO_FINAL_PEDIDO" datatype="DOUBLE" expressionLanguage="SQL">
+        <formula>&quot;CUSTO_TOTAL&quot;+&quot;VALOR_FRETE&quot;+&quot;TAXA_SOBRE_O_PEDIDO&quot;</formula>
+      </calculatedViewAttribute>
+    
+      <calculatedViewAttribute id="LUCRO_PEDIDO" datatype="DOUBLE" expressionLanguage="SQL">
+        <formula>&quot;VALOR_FINAL_PEDIDO&quot; -&quot;CUSTO_FINAL_PEDIDO&quot;</formula>
+      </calculatedViewAttribute>
+      <calculatedViewAttribute id="LUCRO_PEDIDO_PERCENTUAL" datatype="DOUBLE" expressionLanguage="SQL">
+        <formula>(&quot;VALOR_FINAL_PEDIDO&quot; -&quot;CUSTO_FINAL_PEDIDO&quot;)/&quot;VALOR_FINAL_PEDIDO&quot;</formula>
+      </calculatedViewAttribute>
+    </calculatedViewAttributes>
+    <input node="Join_3">
+      <mapping xsi:type="Calculation:AttributeMapping" target="PEDIDO_ID" source="PEDIDO_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CLIENTE_ID" source="CLIENTE_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="TIPO_PAGAMENTO" source="TIPO_PAGAMENTO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="QUANTIDADE_TOTAL" source="QUANTIDADE_TOTAL"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="VALOR_TOTAL" source="VALOR_TOTAL"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CUSTO_TOTAL" source="CUSTO_TOTAL"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="PESO_TOTAL" source="PESO_TOTAL"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="ENDERECO_ID" source="ENDERECO_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CUSTO_FRETE_POR_QUILO" source="CUSTO_FRETE_POR_QUILO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="VALOR_FRETE" source="VALOR_FRETE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="VALOR_FINAL_PEDIDO" source="VALOR_FINAL_PEDIDO"/>
+    </input>
+    <input node="Projection_3">
+      <mapping xsi:type="Calculation:AttributeMapping" target="TAXA" source="TAXA"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="TIPO_PAGAMENTO" source="TIPO_PAGAMENTO"/>
+    </input>
+    <joinAttribute name="TIPO_PAGAMENTO"/>
+  </calculationView>
+</calculationViews>
+<logicalModel id="Join_4">
+  <attributes>
+    <attribute id="PEDIDO_ID" order="1" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="PEDIDO_ID"/>
+      <keyMapping columnObjectName="Join_4" columnName="PEDIDO_ID"/>
+    </attribute>
+    <attribute id="CLIENTE_ID" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CLIENTE_ID"/>
+      <keyMapping columnObjectName="Join_4" columnName="CLIENTE_ID"/>
+    </attribute>
+    <attribute id="TIPO_PAGAMENTO" order="3" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="TIPO_PAGAMENTO"/>
+      <keyMapping columnObjectName="Join_4" columnName="TIPO_PAGAMENTO"/>
+    </attribute>
+    <attribute id="QUANTIDADE_TOTAL" order="4" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="QUANTIDADE_TOTAL"/>
+      <keyMapping columnObjectName="Join_4" columnName="QUANTIDADE_TOTAL"/>
+    </attribute>
+    <attribute id="VALOR_TOTAL" order="5" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="VALOR_TOTAL"/>
+      <keyMapping columnObjectName="Join_4" columnName="VALOR_TOTAL"/>
+    </attribute>
+    <attribute id="CUSTO_TOTAL" order="6" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CUSTO_TOTAL"/>
+      <keyMapping columnObjectName="Join_4" columnName="CUSTO_TOTAL"/>
+    </attribute>
+    <attribute id="PESO_TOTAL" order="7" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="PESO_TOTAL"/>
+      <keyMapping columnObjectName="Join_4" columnName="PESO_TOTAL"/>
+    </attribute>
+    <attribute id="ENDERECO_ID" order="8" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="ENDERECO_ID"/>
+      <keyMapping columnObjectName="Join_4" columnName="ENDERECO_ID"/>
+    </attribute>
+    <attribute id="CUSTO_FRETE_POR_QUILO" order="9" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CUSTO_FRETE_POR_QUILO"/>
+      <keyMapping columnObjectName="Join_4" columnName="CUSTO_FRETE_POR_QUILO"/>
+    </attribute>
+    <attribute id="VALOR_FRETE" order="10" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="VALOR_FRETE"/>
+      <keyMapping columnObjectName="Join_4" columnName="VALOR_FRETE"/>
+    </attribute>
+    <attribute id="VALOR_FINAL_PEDIDO" order="11" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="VALOR_FINAL_PEDIDO"/>
+      <keyMapping columnObjectName="Join_4" columnName="VALOR_FINAL_PEDIDO"/>
+    </attribute>
+    <attribute id="TAXA" order="12" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="TAXA"/>
+      <keyMapping columnObjectName="Join_4" columnName="TAXA"/>
+    </attribute>
+    <attribute id="TAXA_SOBRE_O_PEDIDO" order="13" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="TAXA_SOBRE_O_PEDIDO"/>
+      <keyMapping columnObjectName="Join_4" columnName="TAXA_SOBRE_O_PEDIDO"/>
+    </attribute>
+    <attribute id="CUSTO_FINAL_PEDIDO" order="14" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CUSTO_FINAL_PEDIDO"/>
+      <keyMapping columnObjectName="Join_4" columnName="CUSTO_FINAL_PEDIDO"/>
+    </attribute>
+    <attribute id="LUCRO_PEDIDO" order="15" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="LUCRO_PEDIDO"/>
+      <keyMapping columnObjectName="Join_4" columnName="LUCRO_PEDIDO"/>
+    </attribute>
+    <attribute id="LUCRO_PEDIDO_PERCENTUAL" order="16" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="LUCRO_PEDIDO_PERCENTUAL"/>
+      <keyMapping columnObjectName="Join_4" columnName="LUCRO_PEDIDO_PERCENTUAL"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures/>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="40" y="85"/>
+    </shape>
+  
+    <shape expanded="true" modelObjectName="TOTAIS" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="-214" y="641"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape expanded="true" modelObjectName="ENDERECOS" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="280" y="641"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="526" y="641"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+  
+    <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="407" y="521"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape modelObjectName="ENDERECOS" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="140"/>
+    </shape>
+    <shape modelObjectName="Projection_1" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="136"/>
+    </shape>
+    <shape expanded="true" modelObjectName="Projection_2" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="59" y="641"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape expanded="true" modelObjectName="Join_2" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="-91" y="511"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape modelObjectName="TOTAIS" modelObjectNameSpace="Join_2" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="198"/>
+    </shape>
+    <shape modelObjectName="Projection_2" modelObjectNameSpace="Join_2" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="187"/>
+    </shape>
+    <shape expanded="true" modelObjectName="Join_3" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="139" y="395"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape modelObjectName="Join_2" modelObjectNameSpace="Join_3" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="198"/>
+    </shape>
+    <shape modelObjectName="Join_1" modelObjectNameSpace="Join_3" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="236"/>
+    </shape>
+    <shape expanded="true" modelObjectName="Projection_3" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="366" y="395"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape expanded="true" modelObjectName="Join_4" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="234" y="252"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape modelObjectName="Join_3" modelObjectNameSpace="Join_4" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="236"/>
+    </shape>
+    <shape modelObjectName="Projection_3" modelObjectNameSpace="Join_4" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="187"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

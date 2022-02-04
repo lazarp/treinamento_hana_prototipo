@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="CV_TOTAIS_PEDIDOS" applyPrivilegeType="NONE" dataCategory="DIMENSION" dimensionType="STANDARD" schemaVersion="3.0" outputViewType="Projection" cacheInvalidationPeriod="NONE" enforceSqlExecution="false">
+<descriptions defaultDescription="CV_TOTAIS_PEDIDOS.hdbcalculationview"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="CV_SUBTOTAIS_ITENS">
+    <resourceUri>CV_SUBTOTAIS_ITENS</resourceUri>
+  </DataSource>
+</dataSources>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="SUBTOTAIS">
+    <viewAttributes>
+      <viewAttribute id="PEDIDO_ID"/>
+      <viewAttribute id="ITEM_ID"/>
+      <viewAttribute id="PRODUTO_ID"/>
+      <viewAttribute id="QUANTIDADE"/>
+      <viewAttribute id="VALOR_SUBTOTAL"/>
+      <viewAttribute id="CUSTO_SUBTOTAL"/>
+      <viewAttribute id="PESO_SUBTOTAL"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="CV_SUBTOTAIS_ITENS"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_1">
+    <viewAttributes>
+      <viewAttribute id="PEDIDO_ID"/>
+      <viewAttribute id="QUANTIDADE" aggregationType="sum"/>
+      <viewAttribute id="VALOR_SUBTOTAL" aggregationType="sum"/>
+      <viewAttribute id="CUSTO_SUBTOTAL" aggregationType="sum"/>
+      <viewAttribute id="PESO_SUBTOTAL" aggregationType="sum"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <restrictedViewAttributes/>
+    <input node="SUBTOTAIS"/>
+  </calculationView>
+</calculationViews>
+<logicalModel id="Aggregation_1">
+  <attributes>
+    <attribute id="PEDIDO_ID" order="1" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="PEDIDO_ID"/>
+      <keyMapping columnObjectName="Aggregation_1" columnName="PEDIDO_ID"/>
+    </attribute>
+    <attribute id="QUANTIDADE_TOTAL" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="QUANTIDADE"/>
+      <keyMapping columnObjectName="Aggregation_1" columnName="QUANTIDADE"/>
+    </attribute>
+    <attribute id="VALOR_TOTAL" order="3" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="VALOR_SUBTOTAL"/>
+      <keyMapping columnObjectName="Aggregation_1" columnName="VALOR_SUBTOTAL"/>
+    </attribute>
+    <attribute id="CUSTO_TOTAL" order="4" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CUSTO_SUBTOTAL"/>
+      <keyMapping columnObjectName="Aggregation_1" columnName="CUSTO_SUBTOTAL"/>
+    </attribute>
+    <attribute id="PESO_TOTAL" order="5" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="PESO_SUBTOTAL"/>
+      <keyMapping columnObjectName="Aggregation_1" columnName="PESO_SUBTOTAL"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures/>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="40" y="85"/>
+    </shape>
+  
+    <shape expanded="true" modelObjectName="SUBTOTAIS" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="100" y="338"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape expanded="true" modelObjectName="Aggregation_1" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="100" y="234"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>
