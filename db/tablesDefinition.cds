@@ -45,6 +45,7 @@ entity T_PEDIDOS_COMPRA {
         DATA_PEDIDO    : Date;
         TIPO_PAGAMENTO : String(50);
         ENDERECO_ID    : Integer;
+        ITENS : Composition of many T_ITENS_COMPRA on ITENS.PEDIDO_ID = PEDIDO_ID;
 };
 
 entity T_ITENS_COMPRA {
@@ -52,6 +53,7 @@ entity T_ITENS_COMPRA {
     key ITEM_ID    : Integer;
         PRODUTO_ID : Integer;
         QUANTIDADE : Integer;
+        PEDIDO : Association to T_PEDIDOS_COMPRA on PEDIDO.PEDIDO_ID = PEDIDO_ID;
 };
 
 entity T_FRETES {
