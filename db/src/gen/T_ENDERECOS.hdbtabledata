@@ -1,0 +1,35 @@
+{
+  "format_version": 1,
+  "imports": [
+    {
+      "target_table": "T_ENDERECOS",
+      "source_data": {
+        "data_type": "CSV",
+        "file_name": "T_ENDERECOS.csv",
+        "has_header": true,
+        "type_config": {
+          "delimiter": ","
+        }
+      },
+      "import_settings": {
+        "import_columns": [
+          "CLIENTE_ID",
+          "ENDERECO_ID",
+          "LOGRADOURO",
+          "COMPLEMENTO",
+          "NUMERO",
+          "CEP"
+        ],
+        "include_filter": []
+      },
+      "column_mappings": {
+        "CLIENTE_ID": "CLIENTE_ID",
+        "ENDERECO_ID": "ENDERECO_ID",
+        "LOGRADOURO": "LOGRADOURO",
+        "COMPLEMENTO": "COMPLEMENTO",
+        "NUMERO": "NUMERO",
+        "CEP": "CEP"
+      }
+    }
+  ]
+}

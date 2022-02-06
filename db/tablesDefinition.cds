@@ -1,51 +1,39 @@
-entity T_CLIENTES{
-    key CLIENTE_ID: Integer;
-        NOME: String(255);
-        EMAIL: String(255);
-        FONE: String(50);
-        DESDE: Date;
-        IDIOMA_PREFERENCIAL: String(2);
+entity T_CLIENTES {
+    key CLIENTE_ID : Integer;
+        NOME       : String(255);
+        EMAIL      : String(255);
+        FONE       : String(50);
+        DESDE      : Date;
+        ENDERECOS  : Composition of many T_ENDERECOS
+                         on ENDERECOS.CLIENTE_ID = CLIENTE_ID;
 };
 
-entity T_ENDERECOS{
-    key CLIENTE_ID: Integer;
-    key ENDERECO_ID: Integer;
-        LOGRADOURO: String(255);
-        NUMERO: Integer;
-        COMPLEMENTO: String(255);
-        CEP: String(9);
+entity T_ENDERECOS {
+    key CLIENTE_ID  : Integer;
+    key ENDERECO_ID : Integer;
+        LOGRADOURO  : String(255);
+        COMPLEMENTO : String(255);
+        NUMERO      : Integer;
+        CEP         : String(9);
+        CLIENTE     : Association to T_CLIENTES
+                          on CLIENTE.CLIENTE_ID = CLIENTE_ID;
 }
 
 entity T_PRODUTOS {
-    key PRODUTO_ID : Integer;
-        VALOR      : Double;
-        CUSTO      : Double;
-        PESO       : Double;
-};
-
-entity T_PRODUTOS_NOMES {
-    key PRODUTO_ID : Integer;
-    key  IDIOMA     : String(2);
-        NOME       : String(255);
-};
-
-entity T_IDIOMAS {
-    key IDIOMA : String(2);
-        NOME   : String(255);
-};
-
-entity T_TAXAS {
-    key TIPO_PAGAMENTO : String(50);
-        TAXA           : Double;
+    key PRODUTO_ID     : Integer;
+        DESCRICAO      : String(255);
+        PRECO_UNITARIO : Double;
+        CUSTO_UNITARIO : Double;
+        PESO_UNITARIO  : Double;
 };
 
 entity T_PEDIDOS_COMPRA {
-    key PEDIDO_ID      : Integer;
-    key CLIENTE_ID     : Integer;
-        DATA_PEDIDO    : Date;
-        TIPO_PAGAMENTO : String(50);
-        ENDERECO_ID    : Integer;
-        ITENS : Composition of many T_ITENS_COMPRA on ITENS.PEDIDO_ID = PEDIDO_ID;
+    key PEDIDO_ID   : Integer;
+    key CLIENTE_ID  : Integer;
+        DATA_PEDIDO : Date;
+        ENDERECO_ID : Integer;
+        ITENS       : Composition of many T_ITENS_COMPRA
+                          on ITENS.PEDIDO_ID = PEDIDO_ID;
 };
 
 entity T_ITENS_COMPRA {
@@ -53,10 +41,11 @@ entity T_ITENS_COMPRA {
     key ITEM_ID    : Integer;
         PRODUTO_ID : Integer;
         QUANTIDADE : Integer;
-        PEDIDO : Association to T_PEDIDOS_COMPRA on PEDIDO.PEDIDO_ID = PEDIDO_ID;
+        PEDIDO     : Association to T_PEDIDOS_COMPRA
+                         on PEDIDO.PEDIDO_ID = PEDIDO_ID;
 };
 
 entity T_FRETES {
-    key CEP                   : String(9);
-        CUSTO_FRETE_POR_QUILO : Double;
+    key CEP                : String(9);
+        FRETE_UNIDADE_PESO : Double;
 };

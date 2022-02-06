@@ -1,0 +1,33 @@
+{
+  "format_version": 1,
+  "imports": [
+    {
+      "target_table": "T_PRODUTOS",
+      "source_data": {
+        "data_type": "CSV",
+        "file_name": "T_PRODUTOS.csv",
+        "has_header": true,
+        "type_config": {
+          "delimiter": ","
+        }
+      },
+      "import_settings": {
+        "import_columns": [
+          "PRODUTO_ID",
+          "DESCRICAO",
+          "PRECO_UNITARIO",
+          "CUSTO_UNITARIO",
+          "PESO_UNITARIO"
+        ],
+        "include_filter": []
+      },
+      "column_mappings": {
+        "PRODUTO_ID": "PRODUTO_ID",
+        "DESCRICAO": "DESCRICAO",
+        "PRECO_UNITARIO": "PRECO_UNITARIO",
+        "CUSTO_UNITARIO": "CUSTO_UNITARIO",
+        "PESO_UNITARIO": "PESO_UNITARIO"
+      }
+    }
+  ]
+}

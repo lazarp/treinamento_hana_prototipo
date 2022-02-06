@@ -1,0 +1,81 @@
+CLIENTE_ID,ENDERECO_ID,LOGRADOURO,COMPLEMENTO,NUMERO,CEP
+1,1,Prairie Rose,Hill,0,30131-475
+2,2,Anderson,Point,5,68339-518
+3,3,Bultman,Center,37,84261-669
+4,4,Sutherland,Court,0,60787-224
+5,5,Shoshone,Avenue,4,36339-396
+6,6,Bay,Point,0201,48934-983
+7,7,Becker,Junction,50808,05644-351
+8,8,Ridge Oak,Terrace,74,32349-206
+9,9,Chinook,Drive,444,20869-114
+10,10,Namekagon,Drive,5762,98902-181
+11,11,Heffernan,Plaza,84,25457-333
+12,12,Swallow,Street,72,01428-654
+13,13,Elka,Plaza,5,82343-426
+14,14,Marcy,Way,59607,93712-820
+15,15,Mesta,Way,3,61049-008
+16,16,Susan,Parkway,803,14430-594
+17,17,Brown,Center,3,95510-069
+18,18,Carey,Junction,3,98803-809
+19,19,Lerdahl,Lane,990,45947-109
+20,20,Pawling,Place,3229,32467-343
+21,21,Sunbrook,Alley,2803,37016-377
+22,22,West,Terrace,52,53507-085
+23,23,Hovde,Plaza,06559,21545-683
+24,24,Beilfuss,Road,482,94480-029
+25,25,Hansons,Way,25,81517-097
+26,26,Vernon,Place,962,59729-764
+27,27,Ridgeway,Drive,33,62037-066
+28,28,Michigan,Center,616,30680-884
+29,29,Coolidge,Drive,79787,25231-049
+30,30,Boyd,Way,143,40104-647
+31,31,Gale,Lane,886,07610-658
+32,32,Blaine,Pass,82,76412-346
+33,33,High Crossing,Drive,48,30292-341
+34,34,Miller,Alley,037,86958-943
+35,35,Acker,Circle,243,99000-189
+36,36,Algoma,Avenue,352,58775-049
+37,37,Namekagon,Center,59,41458-478
+38,38,Di Loreto,Point,3,37608-004
+39,39,Dahle,Pass,3,34281-802
+40,40,Tennyson,Way,0,03445-501
+41,41,Golf View,Crossing,40,37083-187
+42,42,Mesta,Lane,9942,93251-687
+43,43,Jana,Pass,4767,21770-068
+44,44,Manufacturers,Center,9,97038-708
+45,45,Nancy,Street,85,21843-398
+46,46,Hoepker,Plaza,8263,84764-547
+47,47,Delaware,Road,5279,05034-448
+48,48,Bluejay,Trail,9,58318-442
+49,49,Tennyson,Lane,2,89202-798
+50,50,Macpherson,Way,3618,84246-086
+1,51,Shopko,Crossing,6030,44577-206
+2,52,Ramsey,Center,619,74773-317
+3,53,Southridge,Parkway,6,26174-932
+4,54,Basil,Plaza,0,21414-319
+5,55,Bartelt,Avenue,01,83475-206
+6,56,Hanover,Plaza,74999,54848-884
+7,57,Fieldstone,Drive,899,50132-146
+8,58,Bunker Hill,Junction,67899,56759-308
+9,59,Amoth,Drive,52,58809-436
+10,60,Beilfuss,Point,1338,00452-419
+11,61,Glendale,Street,85,69884-294
+12,62,Myrtle,Crossing,26575,55145-534
+13,63,Briar Crest,Place,2,23356-769
+14,64,Cottonwood,Pass,84501,97698-124
+15,65,Holmberg,Crossing,8,56219-474
+16,66,Messerschmidt,Hill,74406,70467-194
+17,67,Merry,Road,7355,01849-630
+18,68,Sachs,Street,6,69390-407
+19,69,Cordelia,Trail,0,61637-510
+20,70,Killdeer,Plaza,43,55673-956
+21,71,Mesta,Road,7289,78482-028
+22,72,3rd,Junction,3504,09925-665
+23,73,Norway Maple,Circle,92,85909-647
+24,74,Ryan,Drive,63418,05993-974
+25,75,Farragut,Court,23,97699-539
+26,76,Dawn,Street,17779,82676-280
+27,77,Independence,Court,6819,31036-982
+28,78,Meadow Ridge,Alley,1273,29465-657
+29,79,Buena Vista,Plaza,0108,79027-070
+30,80,Stoughton,Drive,33026,20834-582

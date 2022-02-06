@@ -1,0 +1,31 @@
+{
+  "format_version": 1,
+  "imports": [
+    {
+      "target_table": "T_ITENS_COMPRA",
+      "source_data": {
+        "data_type": "CSV",
+        "file_name": "T_ITENS_COMPRA.csv",
+        "has_header": true,
+        "type_config": {
+          "delimiter": ","
+        }
+      },
+      "import_settings": {
+        "import_columns": [
+          "PEDIDO_ID",
+          "ITEM_ID",
+          "PRODUTO_ID",
+          "QUANTIDADE"
+        ],
+        "include_filter": []
+      },
+      "column_mappings": {
+        "PEDIDO_ID": "PEDIDO_ID",
+        "ITEM_ID": "ITEM_ID",
+        "PRODUTO_ID": "PRODUTO_ID",
+        "QUANTIDADE": "QUANTIDADE"
+      }
+    }
+  ]
+}
