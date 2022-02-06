@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="CV_CALCULO_PEDIDOS" applyPrivilegeType="NONE" dataCategory="DIMENSION" dimensionType="STANDARD" schemaVersion="3.0" outputViewType="Projection" cacheInvalidationPeriod="NONE" enforceSqlExecution="false">
+<descriptions defaultDescription="CV_CALCULO_FRETE.hdbcalculationview"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="T_ENDERECOS">
+    <resourceUri>T_ENDERECOS</resourceUri>
+  </DataSource>
+  <DataSource id="T_FRETES">
+    <resourceUri>T_FRETES</resourceUri>
+  </DataSource>
+  <DataSource id="T_PEDIDOS_COMPRA">
+    <resourceUri>T_PEDIDOS_COMPRA</resourceUri>
+  </DataSource>
+  <DataSource id="CV_CALCULO_ITENS">
+    <resourceUri>CV_CALCULO_ITENS</resourceUri>
+  </DataSource>
+</dataSources>
+<calculationViews>
+  <calculationView xsi:type="Calculation:JoinView" id="Enderecos_e_Fretes" cardinality="C1_1" joinType="leftOuter">
+    <descriptions>
+      <comment text="Associando as taxas de frete por CEP a cada endereco"/>
+    </descriptions>
+    <viewAttributes>
+      <viewAttribute id="CLIENTE_ID"/>
+      <viewAttribute id="ENDERECO_ID"/>
+      <viewAttribute id="LOGRADOURO"/>
+      <viewAttribute id="COMPLEMENTO"/>
+      <viewAttribute id="NUMERO"/>
+      <viewAttribute id="CEP"/>
+      <viewAttribute id="FRETE_UNIDADE_PESO"/></viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="T_ENDERECOS">
+      <mapping xsi:type="Calculation:AttributeMapping" target="CLIENTE_ID" source="CLIENTE_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="ENDERECO_ID" source="ENDERECO_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CEP" source="CEP"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="LOGRADOURO" source="LOGRADOURO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="NUMERO" source="NUMERO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="COMPLEMENTO" source="COMPLEMENTO"/>
+    </input>
+    <input node="T_FRETES">
+      <mapping xsi:type="Calculation:AttributeMapping" target="FRETE_UNIDADE_PESO" source="FRETE_UNIDADE_PESO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CEP" source="CEP"/>
+    </input>
+    <joinAttribute name="CEP"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Pedidos_Enderecos_Fretes" cardinality="C1_1" joinType="leftOuter">
+    <descriptions>
+      <comment text="Associando os enderecos com o frete a cada pedido de compra"/>
+    </descriptions>
+    <viewAttributes>
+      <viewAttribute id="PEDIDO_ID"/>
+      <viewAttribute id="CLIENTE_ID"/>
+      <viewAttribute id="DATA_PEDIDO"/>
+      <viewAttribute id="ENDERECO_ID"/>
+      <viewAttribute id="LOGRADOURO"/>
+      <viewAttribute id="COMPLEMENTO"/>
+      <viewAttribute id="NUMERO"/>
+      <viewAttribute id="CEP"/>
+      <viewAttribute id="FRETE_UNIDADE_PESO"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="Pedidos">
+      <mapping xsi:type="Calculation:AttributeMapping" target="PEDIDO_ID" source="PEDIDO_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CLIENTE_ID" source="CLIENTE_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="DATA_PEDIDO" source="DATA_PEDIDO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="ENDERECO_ID" source="ENDERECO_ID"/>
+    </input>
+    <input node="Enderecos_e_Fretes">
+      <mapping xsi:type="Calculation:AttributeMapping" target="LOGRADOURO" source="LOGRADOURO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="COMPLEMENTO" source="COMPLEMENTO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="NUMERO" source="NUMERO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CEP" source="CEP"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="FRETE_UNIDADE_PESO" source="FRETE_UNIDADE_PESO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CLIENTE_ID" source="CLIENTE_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="ENDERECO_ID" source="ENDERECO_ID"/>
+    </input>
+    <joinAttribute name="CLIENTE_ID"/>
+    <joinAttribute name="ENDERECO_ID"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Pedidos">
+    <viewAttributes>
+      <viewAttribute id="PEDIDO_ID"/>
+      <viewAttribute id="CLIENTE_ID"/>
+      <viewAttribute id="DATA_PEDIDO"/>
+      <viewAttribute id="ENDERECO_ID"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="T_PEDIDOS_COMPRA"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Itens">
+    <viewAttributes>
+      <viewAttribute id="PEDIDO_ID"/>
+      <viewAttribute id="ITEM_ID"/>
+      <viewAttribute id="PRODUTO_ID"/>
+      <viewAttribute id="DESCRICAO"/>
+      <viewAttribute id="QUANTIDADE"/>
+      <viewAttribute id="PRECO_UNITARIO"/>
+      <viewAttribute id="CUSTO_UNITARIO"/>
+      <viewAttribute id="PESO_UNITARIO"/>
+      <viewAttribute id="PESO_ITEM"/>
+      <viewAttribute id="PRECO_ITEM"/>
+      <viewAttribute id="CUSTO_ITEM"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="CV_CALCULO_ITENS"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="Itens_Sumarizados">
+    <descriptions>
+      <comment text="Sumarizando os campos de Preco, Custo e Peso dos Itens por Pedido"/>
+    </descriptions>
+    <viewAttributes>
+      <viewAttribute id="PEDIDO_ID"/>
+      <viewAttribute id="QUANTIDADE_PEDIDO" aggregationType="sum"/>
+      <viewAttribute id="PESO_PEDIDO" aggregationType="sum"/>
+      <viewAttribute id="SUBTOTAL_PEDIDO" aggregationType="sum"/>
+      <viewAttribute id="CUSTO_PEDIDO" aggregationType="sum"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <restrictedViewAttributes/>
+    <input node="Itens">
+      <mapping xsi:type="Calculation:AttributeMapping" target="PESO_PEDIDO" source="PESO_ITEM"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="SUBTOTAL_PEDIDO" source="PRECO_ITEM"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CUSTO_PEDIDO" source="CUSTO_ITEM"/>
+    
+      <mapping xsi:type="Calculation:AttributeMapping" target="QUANTIDADE_PEDIDO" source="QUANTIDADE"/>
+    </input>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Calculos_Pedido" cardinality="C1_1" joinType="leftOuter">
+    <descriptions>
+      <comment text="Associacao das informacoes dos itens sumarizados por pedido a cada pedido, e os calculos finais"/>
+    </descriptions>
+    <viewAttributes>
+      <viewAttribute id="PEDIDO_ID"/>
+      <viewAttribute id="CLIENTE_ID"/>
+      <viewAttribute id="DATA_PEDIDO"/>
+      <viewAttribute id="ENDERECO_ID"/>
+      <viewAttribute id="LOGRADOURO"/>
+      <viewAttribute id="COMPLEMENTO"/>
+      <viewAttribute id="NUMERO"/>
+      <viewAttribute id="CEP"/>
+      <viewAttribute id="FRETE_UNIDADE_PESO"/>
+      <viewAttribute id="QUANTIDADE_PEDIDO"/>
+      <viewAttribute id="PESO_PEDIDO"/>
+      <viewAttribute id="SUBTOTAL_PEDIDO"/>
+      <viewAttribute id="CUSTO_PEDIDO"/>
+    </viewAttributes>
+    <calculatedViewAttributes>
+      <calculatedViewAttribute id="PRECO_FRETE" datatype="DOUBLE" expressionLanguage="SQL">
+        <formula>ROUND(&quot;PESO_PEDIDO&quot;*&quot;FRETE_UNIDADE_PESO&quot;, 2)</formula>
+      </calculatedViewAttribute>
+      <calculatedViewAttribute id="VALOR_FINAL_PEDIDO" datatype="DOUBLE" expressionLanguage="SQL">
+        <formula>&quot;SUBTOTAL_PEDIDO&quot;+&quot;PRECO_FRETE&quot;</formula>
+      </calculatedViewAttribute>
+      <calculatedViewAttribute id="LUCRO_PEDIDO" datatype="DOUBLE" expressionLanguage="SQL">
+        <formula>&quot;SUBTOTAL_PEDIDO&quot; - &quot;CUSTO_PEDIDO&quot;</formula>
+      </calculatedViewAttribute>
+      <calculatedViewAttribute id="LUCRO_PEDIDO_PERCENTUAL" datatype="DOUBLE" expressionLanguage="SQL">
+        <formula>ROUND(&quot;LUCRO_PEDIDO&quot;/&quot;SUBTOTAL_PEDIDO&quot;, 2)</formula>
+      </calculatedViewAttribute>
+    </calculatedViewAttributes>
+    <input node="Pedidos_Enderecos_Fretes">
+      <mapping xsi:type="Calculation:AttributeMapping" target="PEDIDO_ID" source="PEDIDO_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CLIENTE_ID" source="CLIENTE_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="DATA_PEDIDO" source="DATA_PEDIDO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="ENDERECO_ID" source="ENDERECO_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="LOGRADOURO" source="LOGRADOURO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="COMPLEMENTO" source="COMPLEMENTO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="NUMERO" source="NUMERO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CEP" source="CEP"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="FRETE_UNIDADE_PESO" source="FRETE_UNIDADE_PESO"/>
+    </input>
+    <input node="Itens_Sumarizados">
+      <mapping xsi:type="Calculation:AttributeMapping" target="QUANTIDADE_PEDIDO" source="QUANTIDADE_PEDIDO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="PESO_PEDIDO" source="PESO_PEDIDO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="SUBTOTAL_PEDIDO" source="SUBTOTAL_PEDIDO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CUSTO_PEDIDO" source="CUSTO_PEDIDO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="PEDIDO_ID" source="PEDIDO_ID"/>
+    </input>
+    <joinAttribute name="PEDIDO_ID"/>
+  </calculationView>
+</calculationViews>
+<logicalModel id="Calculos_Pedido">
+  <attributes>
+    <attribute id="PEDIDO_ID" order="1" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="PEDIDO_ID"/>
+      <keyMapping columnObjectName="Calculos_Pedido" columnName="PEDIDO_ID"/>
+    </attribute>
+    <attribute id="CLIENTE_ID" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CLIENTE_ID"/>
+      <keyMapping columnObjectName="Calculos_Pedido" columnName="CLIENTE_ID"/>
+    </attribute>
+    <attribute id="DATA_PEDIDO" order="3" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="DATA_PEDIDO"/>
+      <keyMapping columnObjectName="Calculos_Pedido" columnName="DATA_PEDIDO"/>
+    </attribute>
+    <attribute id="ENDERECO_ID" order="4" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="ENDERECO_ID"/>
+      <keyMapping columnObjectName="Calculos_Pedido" columnName="ENDERECO_ID"/>
+    </attribute>
+    <attribute id="LOGRADOURO" order="5" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="LOGRADOURO"/>
+      <keyMapping columnObjectName="Calculos_Pedido" columnName="LOGRADOURO"/>
+    </attribute>
+    <attribute id="COMPLEMENTO" order="6" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="COMPLEMENTO"/>
+      <keyMapping columnObjectName="Calculos_Pedido" columnName="COMPLEMENTO"/>
+    </attribute>
+    <attribute id="NUMERO" order="7" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="NUMERO"/>
+      <keyMapping columnObjectName="Calculos_Pedido" columnName="NUMERO"/>
+    </attribute>
+    <attribute id="CEP" order="8" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CEP"/>
+      <keyMapping columnObjectName="Calculos_Pedido" columnName="CEP"/>
+    </attribute>
+    <attribute id="FRETE_UNIDADE_PESO" order="9" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="FRETE_UNIDADE_PESO"/>
+      <keyMapping columnObjectName="Calculos_Pedido" columnName="FRETE_UNIDADE_PESO"/>
+    </attribute>
+    <attribute id="QUANTIDADE_PEDIDO" order="10" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="QUANTIDADE_PEDIDO"/>
+      <keyMapping columnObjectName="Calculos_Pedido" columnName="QUANTIDADE_PEDIDO"/>
+    </attribute>
+    <attribute id="PESO_PEDIDO" order="11" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="PESO_PEDIDO"/>
+      <keyMapping columnObjectName="Calculos_Pedido" columnName="PESO_PEDIDO"/>
+    </attribute>
+    <attribute id="SUBTOTAL_PEDIDO" order="12" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="PRECO_PEDIDO"/>
+      <keyMapping columnObjectName="Calculos_Pedido" columnName="SUBTOTAL_PEDIDO"/>
+    </attribute>
+    <attribute id="CUSTO_PEDIDO" order="13" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CUSTO_PEDIDO"/>
+      <keyMapping columnObjectName="Calculos_Pedido" columnName="CUSTO_PEDIDO"/>
+    </attribute>
+    <attribute id="PRECO_FRETE" order="14" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="PRECO_FRETE"/>
+      <keyMapping columnObjectName="Calculos_Pedido" columnName="PRECO_FRETE"/>
+    </attribute>
+    <attribute id="VALOR_FINAL_PEDIDO" order="15" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="VALOR_FINAL_PEDIDO"/>
+      <keyMapping columnObjectName="Calculos_Pedido" columnName="VALOR_FINAL_PEDIDO"/>
+    </attribute>
+    <attribute id="LUCRO_PEDIDO" order="16" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="LUCRO_PEDIDO"/>
+      <keyMapping columnObjectName="Calculos_Pedido" columnName="LUCRO_PEDIDO"/>
+    </attribute>
+    <attribute id="LUCRO_PEDIDO_PERCENTUAL" order="17" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="LUCRO_PEDIDO_PERCENTUAL"/>
+      <keyMapping columnObjectName="Calculos_Pedido" columnName="LUCRO_PEDIDO_PERCENTUAL"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures/>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="418" y="112"/>
+    
+      <rectangleSize width="160"/>
+    </shape>
+  
+    <shape expanded="true" modelObjectName="Enderecos_e_Fretes" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="301" y="536"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape modelObjectName="T_ENDERECOS" modelObjectNameSpace="Enderecos_e_Fretes" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="171"/>
+    </shape>
+    <shape modelObjectName="T_FRETES" modelObjectNameSpace="Enderecos_e_Fretes" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="214"/>
+    </shape>
+    <shape expanded="true" modelObjectName="Pedidos_Enderecos_Fretes" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="118" y="376"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape modelObjectName="Pedidos" modelObjectNameSpace="Pedidos_Enderecos_Fretes" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="121" y="30"/>
+      <rectangleSize width="165"/>
+    </shape>
+    <shape modelObjectName="Enderecos_e_Fretes" modelObjectNameSpace="Pedidos_Enderecos_Fretes" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="385" y="31"/>
+      <rectangleSize width="214"/>
+    </shape>
+    <shape expanded="true" modelObjectName="Pedidos" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="91" y="536"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+  
+    <shape expanded="true" modelObjectName="Itens" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="511" y="536"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape expanded="true" modelObjectName="Itens_Sumarizados" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="462" y="384"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape expanded="true" modelObjectName="Calculos_Pedido" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="418" y="217"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape modelObjectName="Pedidos_Enderecos_Fretes" modelObjectNameSpace="Calculos_Pedido" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="214"/>
+    </shape>
+    <shape modelObjectName="Itens_Sumarizados" modelObjectNameSpace="Calculos_Pedido" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="173"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>
