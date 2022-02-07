@@ -6,4 +6,4 @@ applications:
     buildpacks:
       - nodejs_buildpack
     services:
-      - teste-hdi-2
+      - teste-hdi-oficial

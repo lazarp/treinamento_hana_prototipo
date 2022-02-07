@@ -1,14 +1,47 @@
 _schema-version: "2.1"
 ID: teste
-version: 0.0.1
+version: 0.0.2
+build-parameters:
+  before-all:
+    - builder: custom
+      commands:
+        - npm install --production
+#        - npx rimraf gen/db/src/gen/data # uncomment this line to prevent loading of initial data which is only relevant for dev/test deployments
+#        - npx rimraf gen/db/src/gen/csv  # uncomment this line unless db/csv folder has been used for config/control table data which is entirely managed by the developer and never changed by the app
 modules:
-- name: teste-db
-  type: hdb
-  path: gen/db
-  requires:
-  - name: teste-hdi-2
+  # ---------------- DATABASE DEPLOYER MODULE ------------------
+  - name: teste-db
+    # ------------------------------------------------------------
+    type: hdb
+    path: gen/db
+    requires:
+      - name: teste-hdi-oficial
+
+
+  # --------------------- SERVER MODULE ------------------------
+  - name: teste-srv
+  # ------------------------------------------------------------
+    type: nodejs
+    path: gen/srv
+    parameters:
+      buildpack: nodejs_buildpack
+      memory: 512M
+      disk-quota: 1024M
+    requires:
+      - name: teste-hdi-oficial
+    provides:
+      - name: teste-srv-api
+        properties:
+          srv-url: ${default-url}
+
+          
 resources:
-- name: teste-hdi-2
-  type: com.sap.xs.hdi-container
-  properties:
-    hdi-container-name: ${service-name}
+  # ------------------- HDI CONTAINER SERVICE ------------------
+  - name: teste-hdi-oficial
+  # ------------------------------------------------------------
+    type: com.sap.xs.hdi-container
+    parameters:
+      service: hana
+      service-plan: hdi-shared
+    properties:
+      hdi-container-name: ${service-name}
