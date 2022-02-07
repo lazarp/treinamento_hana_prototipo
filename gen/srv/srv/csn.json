@@ -1,0 +1,631 @@
+{
+  "definitions": {
+    "T_CLIENTES": {
+      "kind": "entity",
+      "elements": {
+        "CLIENTE_ID": {
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "NOME": {
+          "type": "cds.String",
+          "length": 255
+        },
+        "EMAIL": {
+          "type": "cds.String",
+          "length": 255
+        },
+        "FONE": {
+          "type": "cds.String",
+          "length": 50
+        },
+        "DESDE": {
+          "type": "cds.Date"
+        },
+        "ENDERECOS": {
+          "type": "cds.Composition",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "T_ENDERECOS",
+          "on": [
+            {
+              "ref": [
+                "ENDERECOS",
+                "CLIENTE_ID"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "CLIENTE_ID"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "T_ENDERECOS": {
+      "kind": "entity",
+      "elements": {
+        "CLIENTE_ID": {
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "ENDERECO_ID": {
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "LOGRADOURO": {
+          "type": "cds.String",
+          "length": 255
+        },
+        "COMPLEMENTO": {
+          "type": "cds.String",
+          "length": 255
+        },
+        "NUMERO": {
+          "type": "cds.Integer"
+        },
+        "CEP": {
+          "type": "cds.String",
+          "length": 9
+        },
+        "CLIENTE": {
+          "type": "cds.Association",
+          "target": "T_CLIENTES",
+          "on": [
+            {
+              "ref": [
+                "CLIENTE",
+                "CLIENTE_ID"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "CLIENTE_ID"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "T_PRODUTOS": {
+      "kind": "entity",
+      "elements": {
+        "PRODUTO_ID": {
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "DESCRICAO": {
+          "type": "cds.String",
+          "length": 255
+        },
+        "PRECO_UNITARIO": {
+          "type": "cds.Double"
+        },
+        "CUSTO_UNITARIO": {
+          "type": "cds.Double"
+        },
+        "PESO_UNITARIO": {
+          "type": "cds.Double"
+        }
+      }
+    },
+    "T_PEDIDOS_COMPRA": {
+      "kind": "entity",
+      "elements": {
+        "PEDIDO_ID": {
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "CLIENTE_ID": {
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "DATA_PEDIDO": {
+          "type": "cds.Date"
+        },
+        "ENDERECO_ID": {
+          "type": "cds.Integer"
+        },
+        "ITENS": {
+          "type": "cds.Composition",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "T_ITENS_COMPRA",
+          "on": [
+            {
+              "ref": [
+                "ITENS",
+                "PEDIDO_ID"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "PEDIDO_ID"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "T_ITENS_COMPRA": {
+      "kind": "entity",
+      "elements": {
+        "PEDIDO_ID": {
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "ITEM_ID": {
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "PRODUTO_ID": {
+          "type": "cds.Integer"
+        },
+        "QUANTIDADE": {
+          "type": "cds.Integer"
+        },
+        "PEDIDO": {
+          "type": "cds.Association",
+          "target": "T_PEDIDOS_COMPRA",
+          "on": [
+            {
+              "ref": [
+                "PEDIDO",
+                "PEDIDO_ID"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "PEDIDO_ID"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "T_FRETES": {
+      "kind": "entity",
+      "elements": {
+        "CEP": {
+          "key": true,
+          "type": "cds.String",
+          "length": 9
+        },
+        "FRETE_UNIDADE_PESO": {
+          "type": "cds.Double"
+        }
+      }
+    },
+    "CV_CALCULO_ITENS": {
+      "kind": "entity",
+      "@cds.persistence.exists": true,
+      "@cds.persistence.calcview": true,
+      "elements": {
+        "PEDIDO_ID": {
+          "@title": "PEDIDO_ID: PEDIDO_ID",
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "ITEM_ID": {
+          "@title": "ITEM_ID: ITEM_ID",
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "PRODUTO_ID": {
+          "@title": "PRODUTO_ID: PRODUTO_ID",
+          "type": "cds.Integer"
+        },
+        "DESCRICAO": {
+          "@title": "DESCRICAO: DESCRICAO",
+          "type": "cds.String",
+          "length": 255
+        },
+        "QUANTIDADE": {
+          "@title": "QUANTIDADE: QUANTIDADE",
+          "type": "cds.Integer"
+        },
+        "PRECO_UNITARIO": {
+          "@title": "PRECO_UNITARIO: PRECO_UNITARIO",
+          "type": "cds.Double"
+        },
+        "CUSTO_UNITARIO": {
+          "@title": "CUSTO_UNITARIO: CUSTO_UNITARIO",
+          "type": "cds.Double"
+        },
+        "PESO_UNITARIO": {
+          "@title": "PESO_UNITARIO: PESO_UNITARIO",
+          "type": "cds.Double"
+        },
+        "PESO_ITEM": {
+          "@title": "PESO_ITEM: PESO_ITEM",
+          "type": "cds.Double"
+        },
+        "PRECO_ITEM": {
+          "@title": "PRECO_ITEM: PRECO_ITEM",
+          "type": "cds.Double"
+        },
+        "CUSTO_ITEM": {
+          "@title": "CUSTO_ITEM: CUSTO_ITEM",
+          "type": "cds.Double"
+        }
+      }
+    },
+    "CV_CALCULO_PEDIDOS": {
+      "kind": "entity",
+      "@cds.persistence.exists": true,
+      "@cds.persistence.calcview": true,
+      "elements": {
+        "PEDIDO_ID": {
+          "@title": "PEDIDO_ID: PEDIDO_ID",
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "CLIENTE_ID": {
+          "@title": "CLIENTE_ID: CLIENTE_ID",
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "DATA_PEDIDO": {
+          "@title": "DATA_PEDIDO: DATA_PEDIDO",
+          "type": "cds.Date"
+        },
+        "ENDERECO_ID": {
+          "@title": "ENDERECO_ID: ENDERECO_ID",
+          "type": "cds.Integer"
+        },
+        "LOGRADOURO": {
+          "@title": "LOGRADOURO: LOGRADOURO",
+          "type": "cds.String",
+          "length": 255
+        },
+        "COMPLEMENTO": {
+          "@title": "COMPLEMENTO: COMPLEMENTO",
+          "type": "cds.String",
+          "length": 255
+        },
+        "NUMERO": {
+          "@title": "NUMERO: NUMERO",
+          "type": "cds.Integer"
+        },
+        "CEP": {
+          "@title": "CEP: CEP",
+          "type": "cds.String",
+          "length": 9
+        },
+        "FRETE_UNIDADE_PESO": {
+          "@title": "FRETE_UNIDADE_PESO: FRETE_UNIDADE_PESO",
+          "type": "cds.Double"
+        },
+        "QUANTIDADE_PEDIDO": {
+          "@title": "QUANTIDADE_PEDIDO: QUANTIDADE_PEDIDO",
+          "type": "cds.Integer"
+        },
+        "PESO_PEDIDO": {
+          "@title": "PESO_PEDIDO: PESO_PEDIDO",
+          "type": "cds.Double"
+        },
+        "SUBTOTAL_PEDIDO": {
+          "@title": "SUBTOTAL_PEDIDO: PRECO_PEDIDO",
+          "type": "cds.Double"
+        },
+        "CUSTO_PEDIDO": {
+          "@title": "CUSTO_PEDIDO: CUSTO_PEDIDO",
+          "type": "cds.Double"
+        },
+        "PRECO_FRETE": {
+          "@title": "PRECO_FRETE: PRECO_FRETE",
+          "type": "cds.Double"
+        },
+        "VALOR_FINAL_PEDIDO": {
+          "@title": "VALOR_FINAL_PEDIDO: VALOR_FINAL_PEDIDO",
+          "type": "cds.Double"
+        },
+        "LUCRO_PEDIDO": {
+          "@title": "LUCRO_PEDIDO: LUCRO_PEDIDO",
+          "type": "cds.Double"
+        },
+        "LUCRO_PEDIDO_PERCENTUAL": {
+          "@title": "LUCRO_PEDIDO_PERCENTUAL: LUCRO_PEDIDO_PERCENTUAL",
+          "type": "cds.Double"
+        }
+      }
+    },
+    "CatalogService": {
+      "@source": "srv/cat-service.cds",
+      "kind": "service",
+      "@path": "/catalog"
+    },
+    "CatalogService.Clientes": {
+      "kind": "entity",
+      "projection": {
+        "from": {
+          "ref": [
+            "T_CLIENTES"
+          ]
+        }
+      },
+      "elements": {
+        "CLIENTE_ID": {
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "NOME": {
+          "type": "cds.String",
+          "length": 255
+        },
+        "EMAIL": {
+          "type": "cds.String",
+          "length": 255
+        },
+        "FONE": {
+          "type": "cds.String",
+          "length": 50
+        },
+        "DESDE": {
+          "type": "cds.Date"
+        },
+        "ENDERECOS": {
+          "type": "cds.Composition",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "CatalogService.Enderecos",
+          "on": [
+            {
+              "ref": [
+                "ENDERECOS",
+                "CLIENTE_ID"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "CLIENTE_ID"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "CatalogService.Enderecos": {
+      "kind": "entity",
+      "projection": {
+        "from": {
+          "ref": [
+            "T_ENDERECOS"
+          ]
+        }
+      },
+      "elements": {
+        "CLIENTE_ID": {
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "ENDERECO_ID": {
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "LOGRADOURO": {
+          "type": "cds.String",
+          "length": 255
+        },
+        "COMPLEMENTO": {
+          "type": "cds.String",
+          "length": 255
+        },
+        "NUMERO": {
+          "type": "cds.Integer"
+        },
+        "CEP": {
+          "type": "cds.String",
+          "length": 9
+        },
+        "CLIENTE": {
+          "type": "cds.Association",
+          "target": "CatalogService.Clientes",
+          "on": [
+            {
+              "ref": [
+                "CLIENTE",
+                "CLIENTE_ID"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "CLIENTE_ID"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "CatalogService.Produtos": {
+      "kind": "entity",
+      "projection": {
+        "from": {
+          "ref": [
+            "T_PRODUTOS"
+          ]
+        }
+      },
+      "elements": {
+        "PRODUTO_ID": {
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "DESCRICAO": {
+          "type": "cds.String",
+          "length": 255
+        },
+        "PRECO_UNITARIO": {
+          "type": "cds.Double"
+        },
+        "CUSTO_UNITARIO": {
+          "type": "cds.Double"
+        },
+        "PESO_UNITARIO": {
+          "type": "cds.Double"
+        }
+      }
+    },
+    "CatalogService.calculo_itens": {
+      "kind": "entity",
+      "@readonly": true,
+      "projection": {
+        "from": {
+          "ref": [
+            "CV_CALCULO_ITENS"
+          ]
+        }
+      },
+      "elements": {
+        "PEDIDO_ID": {
+          "@title": "PEDIDO_ID: PEDIDO_ID",
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "ITEM_ID": {
+          "@title": "ITEM_ID: ITEM_ID",
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "PRODUTO_ID": {
+          "@title": "PRODUTO_ID: PRODUTO_ID",
+          "type": "cds.Integer"
+        },
+        "DESCRICAO": {
+          "@title": "DESCRICAO: DESCRICAO",
+          "type": "cds.String",
+          "length": 255
+        },
+        "QUANTIDADE": {
+          "@title": "QUANTIDADE: QUANTIDADE",
+          "type": "cds.Integer"
+        },
+        "PRECO_UNITARIO": {
+          "@title": "PRECO_UNITARIO: PRECO_UNITARIO",
+          "type": "cds.Double"
+        },
+        "CUSTO_UNITARIO": {
+          "@title": "CUSTO_UNITARIO: CUSTO_UNITARIO",
+          "type": "cds.Double"
+        },
+        "PESO_UNITARIO": {
+          "@title": "PESO_UNITARIO: PESO_UNITARIO",
+          "type": "cds.Double"
+        },
+        "PESO_ITEM": {
+          "@title": "PESO_ITEM: PESO_ITEM",
+          "type": "cds.Double"
+        },
+        "PRECO_ITEM": {
+          "@title": "PRECO_ITEM: PRECO_ITEM",
+          "type": "cds.Double"
+        },
+        "CUSTO_ITEM": {
+          "@title": "CUSTO_ITEM: CUSTO_ITEM",
+          "type": "cds.Double"
+        }
+      }
+    },
+    "CatalogService.calculo_pedidos": {
+      "kind": "entity",
+      "@readonly": true,
+      "projection": {
+        "from": {
+          "ref": [
+            "CV_CALCULO_PEDIDOS"
+          ]
+        }
+      },
+      "elements": {
+        "PEDIDO_ID": {
+          "@title": "PEDIDO_ID: PEDIDO_ID",
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "CLIENTE_ID": {
+          "@title": "CLIENTE_ID: CLIENTE_ID",
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "DATA_PEDIDO": {
+          "@title": "DATA_PEDIDO: DATA_PEDIDO",
+          "type": "cds.Date"
+        },
+        "ENDERECO_ID": {
+          "@title": "ENDERECO_ID: ENDERECO_ID",
+          "type": "cds.Integer"
+        },
+        "LOGRADOURO": {
+          "@title": "LOGRADOURO: LOGRADOURO",
+          "type": "cds.String",
+          "length": 255
+        },
+        "COMPLEMENTO": {
+          "@title": "COMPLEMENTO: COMPLEMENTO",
+          "type": "cds.String",
+          "length": 255
+        },
+        "NUMERO": {
+          "@title": "NUMERO: NUMERO",
+          "type": "cds.Integer"
+        },
+        "CEP": {
+          "@title": "CEP: CEP",
+          "type": "cds.String",
+          "length": 9
+        },
+        "FRETE_UNIDADE_PESO": {
+          "@title": "FRETE_UNIDADE_PESO: FRETE_UNIDADE_PESO",
+          "type": "cds.Double"
+        },
+        "QUANTIDADE_PEDIDO": {
+          "@title": "QUANTIDADE_PEDIDO: QUANTIDADE_PEDIDO",
+          "type": "cds.Integer"
+        },
+        "PESO_PEDIDO": {
+          "@title": "PESO_PEDIDO: PESO_PEDIDO",
+          "type": "cds.Double"
+        },
+        "SUBTOTAL_PEDIDO": {
+          "@title": "SUBTOTAL_PEDIDO: PRECO_PEDIDO",
+          "type": "cds.Double"
+        },
+        "CUSTO_PEDIDO": {
+          "@title": "CUSTO_PEDIDO: CUSTO_PEDIDO",
+          "type": "cds.Double"
+        },
+        "PRECO_FRETE": {
+          "@title": "PRECO_FRETE: PRECO_FRETE",
+          "type": "cds.Double"
+        },
+        "VALOR_FINAL_PEDIDO": {
+          "@title": "VALOR_FINAL_PEDIDO: VALOR_FINAL_PEDIDO",
+          "type": "cds.Double"
+        },
+        "LUCRO_PEDIDO": {
+          "@title": "LUCRO_PEDIDO: LUCRO_PEDIDO",
+          "type": "cds.Double"
+        },
+        "LUCRO_PEDIDO_PERCENTUAL": {
+          "@title": "LUCRO_PEDIDO_PERCENTUAL: LUCRO_PEDIDO_PERCENTUAL",
+          "type": "cds.Double"
+        }
+      }
+    }
+  },
+  "meta": {
+    "creator": "CDS Compiler v2.12.0",
+    "flavor": "inferred"
+  },
+  "$version": "2.0"
+}

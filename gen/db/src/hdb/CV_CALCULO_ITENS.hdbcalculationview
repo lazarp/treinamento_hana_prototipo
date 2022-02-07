@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="CV_CALCULO_ITENS" applyPrivilegeType="NONE" dataCategory="DIMENSION" dimensionType="STANDARD" schemaVersion="3.0" outputViewType="Projection" cacheInvalidationPeriod="NONE" enforceSqlExecution="false">
+<descriptions defaultDescription="CV_CALCULO_ITENS.hdbcalculationview"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="T_ITENS_COMPRA">
+    <resourceUri>T_ITENS_COMPRA</resourceUri>
+  </DataSource>
+  <DataSource id="T_PRODUTOS">
+    <resourceUri>T_PRODUTOS</resourceUri>
+  </DataSource>
+</dataSources>
+<calculationViews>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_Itens_e_Produtos" cardinality="C1_1" joinType="leftOuter">
+    <descriptions>
+      <comment text="Associando as informações de produto aos itens "/>
+    </descriptions>
+    <viewAttributes>
+      <viewAttribute id="PEDIDO_ID"/>
+      <viewAttribute id="ITEM_ID"/>
+      <viewAttribute id="PRODUTO_ID"/>
+      <viewAttribute id="DESCRICAO"/>
+      <viewAttribute id="QUANTIDADE"/>
+      <viewAttribute id="PRECO_UNITARIO"/>
+      <viewAttribute id="CUSTO_UNITARIO"/>
+      <viewAttribute id="PESO_UNITARIO"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="T_ITENS_COMPRA">
+      <mapping xsi:type="Calculation:AttributeMapping" target="PEDIDO_ID" source="PEDIDO_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="ITEM_ID" source="ITEM_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="PRODUTO_ID" source="PRODUTO_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="QUANTIDADE" source="QUANTIDADE"/>
+    </input>
+    <input node="T_PRODUTOS">
+      <mapping xsi:type="Calculation:AttributeMapping" target="DESCRICAO" source="DESCRICAO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="PRECO_UNITARIO" source="PRECO_UNITARIO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CUSTO_UNITARIO" source="CUSTO_UNITARIO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="PESO_UNITARIO" source="PESO_UNITARIO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="PRODUTO_ID" source="PRODUTO_ID"/>
+    </input>
+    <joinAttribute name="PRODUTO_ID"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Cálculos">
+    <viewAttributes>
+      <viewAttribute id="PEDIDO_ID"/>
+      <viewAttribute id="ITEM_ID"/>
+      <viewAttribute id="PRODUTO_ID"/>
+      <viewAttribute id="DESCRICAO"/>
+      <viewAttribute id="QUANTIDADE"/>
+      <viewAttribute id="PRECO_UNITARIO"/>
+      <viewAttribute id="CUSTO_UNITARIO"/>
+      <viewAttribute id="PESO_UNITARIO"/>
+    </viewAttributes>
+    <calculatedViewAttributes>
+      <calculatedViewAttribute id="PESO_ITEM" datatype="DOUBLE" expressionLanguage="SQL">
+        <formula>ROUND((&quot;PESO_UNITARIO&quot;*&quot;QUANTIDADE&quot;), 2)</formula>
+      </calculatedViewAttribute>
+      <calculatedViewAttribute id="PRECO_ITEM" datatype="DOUBLE" expressionLanguage="SQL">
+        <formula>ROUND(&quot;PRECO_UNITARIO&quot;*&quot;QUANTIDADE&quot;, 2)</formula>
+      </calculatedViewAttribute>
+      <calculatedViewAttribute id="CUSTO_ITEM" datatype="DOUBLE" expressionLanguage="SQL">
+        <formula>ROUND(&quot;CUSTO_UNITARIO&quot;*&quot;QUANTIDADE&quot;,2)</formula>
+      </calculatedViewAttribute>
+    </calculatedViewAttributes>
+    <input node="Join_Itens_e_Produtos"/>
+  </calculationView>
+</calculationViews>
+<logicalModel id="Cálculos">
+  <attributes>
+    <attribute id="PEDIDO_ID" order="1" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="PEDIDO_ID"/>
+      <keyMapping columnObjectName="Cálculos" columnName="PEDIDO_ID"/>
+    </attribute>
+    <attribute id="ITEM_ID" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="ITEM_ID"/>
+      <keyMapping columnObjectName="Cálculos" columnName="ITEM_ID"/>
+    </attribute>
+    <attribute id="PRODUTO_ID" order="3" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="PRODUTO_ID"/>
+      <keyMapping columnObjectName="Cálculos" columnName="PRODUTO_ID"/>
+    </attribute>
+    <attribute id="DESCRICAO" order="4" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="DESCRICAO"/>
+      <keyMapping columnObjectName="Cálculos" columnName="DESCRICAO"/>
+    </attribute>
+    <attribute id="QUANTIDADE" order="5" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="QUANTIDADE"/>
+      <keyMapping columnObjectName="Cálculos" columnName="QUANTIDADE"/>
+    </attribute>
+    <attribute id="PRECO_UNITARIO" order="6" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="PRECO_UNITARIO"/>
+      <keyMapping columnObjectName="Cálculos" columnName="PRECO_UNITARIO"/>
+    </attribute>
+    <attribute id="CUSTO_UNITARIO" order="7" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CUSTO_UNITARIO"/>
+      <keyMapping columnObjectName="Cálculos" columnName="CUSTO_UNITARIO"/>
+    </attribute>
+    <attribute id="PESO_UNITARIO" order="8" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="PESO_UNITARIO"/>
+      <keyMapping columnObjectName="Cálculos" columnName="PESO_UNITARIO"/>
+    </attribute>
+    <attribute id="PESO_ITEM" order="9" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="PESO_ITEM"/>
+      <keyMapping columnObjectName="Cálculos" columnName="PESO_ITEM"/>
+    </attribute>
+    <attribute id="PRECO_ITEM" order="10" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="PRECO_ITEM"/>
+      <keyMapping columnObjectName="Cálculos" columnName="PRECO_ITEM"/>
+    </attribute>
+    <attribute id="CUSTO_ITEM" order="11" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CUSTO_ITEM"/>
+      <keyMapping columnObjectName="Cálculos" columnName="CUSTO_ITEM"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures/>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="40" y="85"/>
+    </shape>
+  
+    <shape expanded="true" modelObjectName="Join_Itens_e_Produtos" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="67" y="318"/>
+      <rectangleSize height="30" width="237"/>
+    </shape>
+    <shape modelObjectName="T_ITENS_COMPRA" modelObjectNameSpace="Join_Itens_e_Produtos" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="173.34765625"/>
+    </shape>
+    <shape modelObjectName="T_PRODUTOS" modelObjectNameSpace="Join_Itens_e_Produtos" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="182.97509765625"/>
+    </shape>
+    <shape expanded="true" modelObjectName="Cálculos" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="100" y="209"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

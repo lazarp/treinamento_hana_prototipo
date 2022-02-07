@@ -5,8 +5,15 @@
     "repository": "<Add your repository here>",
     "license": "UNLICENSED",
     "dependencies": {
-        "@sap/cds": "^5.8.0",
-        "@sap/hana-client": "^2.11.14"
+        "@sap/cds": "^5",
+        "@sap/audit-logging": "^5",
+        "@sap/hana-client": "^2",
+        "@sap/cds-odata-v2-adapter-proxy": "^1",
+        "@sap/xsenv": "^3",
+        "@sap/xssec": "^3",
+        "passport": "^0.4.1",
+        "debug": "^4.3",
+        "express": "^4"
     },
     "engines": {
         "node": "^14"
@@ -27,9 +34,6 @@
                     "db"
                 ]
             }
-        },
-        "odata": {
-            "version": "v2"
         }
     },
     "files": [

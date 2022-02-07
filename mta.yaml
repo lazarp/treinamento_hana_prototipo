@@ -4,7 +4,7 @@ version: 0.0.1
 modules:
 - name: teste-db
   type: hdb
-  path: db
+  path: gen/db
   requires:
   - name: teste-hdi-2
 resources:
