@@ -31,7 +31,8 @@
             "db": {
                 "kind": "hana",
                 "model": [
-                    "db"
+                    "db",
+                    "srv"
                 ]
             }
         }
