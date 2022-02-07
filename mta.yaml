@@ -2,18 +2,13 @@ _schema-version: "2.1"
 ID: teste
 version: 0.0.1
 modules:
-- name: db
+- name: teste-db
   type: hdb
   path: db
   requires:
-  - name: hdi_db
-    properties:
-      TARGET_CONTAINER: ~{hdi-container-name}
+  - name: teste-hdi-2
 resources:
-- name: hdi_db
+- name: teste-hdi-2
   type: com.sap.xs.hdi-container
-  parameters:
-    config:
-      schema: teste
   properties:
     hdi-container-name: ${service-name}
